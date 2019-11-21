@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+   <head>
+      <meta charset="utf-8"/>
+      <title>Welcome <%= name %></title>
+      <meta content="width=device-width, initial-scale=1" name="viewport"/>
+      <link href="/dashboard/style.css" rel="stylesheet" type="text/css"/>
+      <link href="https://fonts.googleapis.com/css?family=Muli&display=swap" rel="stylesheet">
+   </head>
+   <body class="body">
+      <div class="section-2">
+         <div class="div-block-2">
+            <div class="div-block-6"><img class="img" src="https://upload.wikimedia.org/wikipedia/en/thumb/5/5a/Ramaiah_Institutions_Logo.png/220px-Ramaiah_Institutions_Logo.png" alt=""/></div>
+            <div class="div-block-3">
+               <h2 class="heading-2 active">Dashboard</h2>
+               <h2 class="heading-2">Pending</h2>
+               <h2 class="heading-2">Log Out</h2>
+            </div>
+         </div>
+         <div class="div-block-4">
+            <div class="div-block-7">
+               <h3 class="heading-3">Hi <%= name %>,</h3>
+               <div class="div-block-8">
+                  <div class="div-block-9">
+                     <h1 class="heading-4">Pending Requests</h1>
+                     <h1 class="heading-5">0</h1>
+                  </div>
+                  <div class="div-block-9">
+                     <h1 class="heading-4">Total Substituted</h1>
+                     <h1 class="heading-5"><%= totalTaken%></h1>
+                  </div>
+               </div>
+            </div>
+            <div class="div-block-14">
+               <h1 class="heading-11">Are you on leave?</h1>
+               <form action="/teachers/substitute" method="POST">
+                  <input type="hidden" name="id" value="7967227">
+                  <input type = "submit" class="div-block-15" value="I Need Substitute">
+               </form>
+            </div>
+            <div class="div-block-11">
+               <h1 class="heading-6">Classes you need to go to,</h1>
+               <div class="div-block-12">
+                  <h3 class="heading-7">Subject</h3>
+                  <h3 class="heading-8">Sem</h3>
+                  <h3 class="heading-9">Section</h3>
+                  <h3 class="heading-10">Time</h3>
+               </div>
+            </div>
+         </div>
+      </div>
+   </body>
+  </html>

@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Timetable</title>
+    <link rel="stylesheet" href="/timetable/style.css">
+    <link href="https://fonts.googleapis.com/css?family=Rubik:400,700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div>
+        <div class="staffName">
+            <h1>Name : <%= data[0].NAME %></h1>
+          </div>
+          <div class="Timetable">
+        <table class="Timetable__table" cellspacing="0" cellpadding="0">  
+          <tbody>
+          
+            <tr class="Timetable__time">
+              <th class="Timetable__room"></th>
+              <th>09:00-09:55</th>
+              <th>09:55-10:50</th>
+              <th>11:05-12:00</th>
+              <th>12:00-12:55</th>
+              <th>01:45-02:40</th>
+              <th>02:40-03:35</th>
+              <th>03:35-04:30</th>
+            </tr>
+      
+            <tr>
+              <th class="Timetable__room">Monday</th>
+              <% for(var j=1; j < 8 ; j++) {%>
+                <% let haveSubject=false %>
+                <% for(var i=0; i < data.length ; i++) {%>
+                  <% if(data[i].Day == "MON" && data[i].session_number == j) {%>
+                    <% haveSubject =true %>
+                    <td colspan="1">
+                      <button class="Allocation monday">
+                        <%= data[i].SUBJECT%> <b><%= data[i].semester%>  <%= data[i].section%> </b>
+                      </button>
+                    </td>
+                  <% } %>
+                <%}%>
+                <% if(!haveSubject){ %>
+                  <td colspan="1"></td>
+                <% } %>
+              <%}%>
+              
+            </tr>
+      
+            <tr>
+              <th class="Timetable__room">Tuesday</th>
+              <% for(var j=1; j < 8 ; j++) {%>
+                <% let haveSubject=false %>
+                <% for(var i=0; i < data.length ; i++) {%>
+                  <% if(data[i].Day == "TUE" && data[i].session_number == j) {%>
+                    <% haveSubject =true %>
+                    <td colspan="1">
+                      <button class="Allocation tuesday">
+                        <%= data[i].SUBJECT%> <b><%= data[i].semester%>  <%= data[i].section%> </b>
+                      </button>
+                    </td>
+                  <% } %>
+                <%}%>
+                <% if(!haveSubject){ %>
+                  <td colspan="1"></td>
+                <% } %>
+              <%}%>
+              
+              
+            <tr>
+              <th class="Timetable__room">Wednesday</th>
+      
+              <% for(var j=1; j < 8 ; j++) {%>
+                <% let haveSubject=false %>
+                <% for(var i=0; i < data.length ; i++) {%>
+                  <% if(data[i].Day == "WED" && data[i].session_number == j) {%>
+                    <% haveSubject =true %>
+                    <td colspan="1">
+                      <button class="Allocation wednesday">
+                        <%= data[i].SUBJECT%> <b><%= data[i].semester%>  <%= data[i].section%> </b>
+                      </button>
+                    </td>
+                  <% } %>
+                <%}%>
+                <% if(!haveSubject){ %>
+                  <td colspan="1"></td>
+                <% } %>
+              <%}%>
+            </tr>
+      
+            <tr>
+              <th class="Timetable__room">Thursday</th>
+      
+              <% for(var j=1; j < 8 ; j++) {%>
+                <% let haveSubject=false %>
+                <% for(var i=0; i < data.length ; i++) {%>
+                  <% if(data[i].Day == "THU" && data[i].session_number == j) {%>
+                    <% haveSubject =true %>
+                    <td colspan="1">
+                      <button class="Allocation friday">
+                        <%= data[i].SUBJECT%> <b><%= data[i].semester%>  <%= data[i].section%> </b>
+                      </button>
+                    </td>
+                  <% } %>
+                <%}%>
+                <% if(!haveSubject){ %>
+                  <td colspan="1"></td>
+                <% } %>
+              <%}%>
+            </tr>
+            
+      
+            <tr>
+              <th class="Timetable__room">Friday</th>
+      
+              <% for(var j=1; j < 8 ; j++) {%>
+                <% let haveSubject=false %>
+                <% for(var i=0; i < data.length ; i++) {%>
+                  <% if(data[i].Day == "FRI" && data[i].session_number == j) {%>
+                    <% haveSubject =true %>
+                    <td colspan="1">
+                      <button class="Allocation">
+                        <%= data[i].SUBJECT%> <b><%= data[i].semester%>  <%= data[i].section%> </b>
+                      </button>
+                    </td>
+                  <% } %>
+                <%}%>
+                <% if(!haveSubject){ %>
+                  <td colspan="1"></td>
+                <% } %>
+              <%}%>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <h3 class="fotter_message">Click on a subject that you want substitute for <span class="highlight">in case of labs , click on the first hour</span></h3>
+    </div>
+</body>
+</html>
