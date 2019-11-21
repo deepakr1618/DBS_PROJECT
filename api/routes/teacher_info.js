@@ -21,7 +21,7 @@ router.post("/substitute" , (req,res)=>{
     .then((conn)=>{
             conn.query(`SELECT
                             teacher.id AS id,
-                            timetable.day as Day,
+                            timetable.day as Day, 
                             teacher.Name AS NAME,
                             subjects.coursename AS SUBJECT,
                             session.Section as section,
@@ -35,6 +35,7 @@ router.post("/substitute" , (req,res)=>{
                         JOIN subjects ON session.SubjectID = subjects.courseID
                         WHERE timetable.t_id = ?
                         ORDER BY  day`,[Tid], (err , results)=>{
+                            conn.destroy()
             if(err){
                 res.json({"message":"Could not find the data you are looking for!"})
             }
@@ -72,6 +73,7 @@ router.get("/profile/:id",(req,res)=>{
         //     res.send(results)
         // })
         conn.query(`select * from teacher where Name = ?`,[name], (err , results)=>{
+            conn.destroy()
             console.log(results)
             res.render("./dashboard/index.ejs" , {
                 name : results[0].Name,
@@ -116,6 +118,7 @@ router.get("/free",(req,res)=>{
         WHERE
             t1.t_id = t.t_id AND sess_no = ?
     ) AND department.deptName = ?` , [sessId , dept] , (err , results)=>{
+        conn.destroy()
             res.json(results)
         })
     })
