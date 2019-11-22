@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Timetable</title>
+    <link rel="stylesheet" href="/selectsub/style.css">
+    <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css?family=Poppins&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/2.1.3/TweenMax.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/2.1.3/TimelineMax.min.js"></script>
+</head>
+<body>
+  <input type="hidden" name="sourceID" value="<%=sourceTID%>">
+  <input type="hidden" name="sessid" value="<%=sessid%>">
+  <input type="hidden" name="sess_no" value="<%=sess_no%>">
+  <input type="hidden" name="day" value="<%=day%>">
+  <div class="navleft">
+    <div class="x profile ">
+        <i class="fa fa-user-circle" aria-hidden="true"></i>
+    </div>
+    <div class="x timetable active_opt">
+        <i class="fa fa-calendar-o" aria-hidden="true"></i>
+    </div>
+    <div class="x requested">
+        <i class="fa fa-external-link-square" aria-hidden="true"></i>
+    </div>
+  </div>
+    <div class="cont">
+        <div class="staffName">
+            <h1>Please select a staff from the list below, </h1>
+          </div>
+          <div class="Timetable">
+            <% for(let i=0;i < data.length ; i++) {%>
+              <div class="staff">
+                  <div class="name"> <%=data[i].Name%> </div>
+                  <div class="dept"> <%=data[i].deptName%> </div>
+                  <button class="selectStaff">Request</button>
+              </div>
+            <% } %>
+          </div>
+      
+    </div>
+    <script
+  src="https://code.jquery.com/jquery-3.4.1.js"
+  integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
+  crossorigin="anonymous"></script>
+    <script defer src="/selectsub/script.js"></script>
+</body>
+</html> 

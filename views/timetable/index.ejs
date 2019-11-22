@@ -6,14 +6,29 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Timetable</title>
     <link rel="stylesheet" href="/timetable/style.css">
-    <link href="https://fonts.googleapis.com/css?family=Rubik:400,700&display=swap" rel="stylesheet">
+    <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css?family=Poppins&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/2.1.3/TweenMax.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/2.1.3/TimelineMax.min.js"></script>
 </head>
 <body>
+  <div class="navleft">
+    <div class="x profile ">
+        <i class="fa fa-user-circle" aria-hidden="true"></i>
+    </div>
+    <div class="x timetable active_opt">
+        <i class="fa fa-calendar-o" aria-hidden="true"></i>
+    </div>
+    <div class="x requested">
+        <i class="fa fa-external-link-square" aria-hidden="true"></i>
+    </div>
+  </div>
     <div class="cont">
         <div class="staffName">
-            <h1>Name : <%= data[0].NAME %></h1>
+            <h1>Welcome, <%= data[0].NAME %></h1>
           </div>
           <div class="Timetable">
+            
         <table class="Timetable__table" cellspacing="0" cellpadding="0">  
           <tbody>
           
@@ -27,19 +42,36 @@
               <th>02:40-03:35</th>
               <th>03:35-04:30</th>
             </tr>
-      
             <tr>
               <th class="Timetable__room">Monday</th>
               <% for(var j=1; j < 8 ; j++) {%>
                 <% let haveSubject=false %>
                 <% for(var i=0; i < data.length ; i++) {%>
-                  <% if(data[i].Day == "MON" && data[i].session_number == j) {%>
+                  <% if(data[i].day == "MON" && data[i].session_number == j) {%>
                     <% haveSubject =true %>
-                    <td colspan="1">
-                      <button class="Allocation monday">
-                        <%= data[i].SUBJECT%> <b><%= data[i].semester%>  <%= data[i].section%> </b>
-                      </button>
-                    </td>
+                    <% if(data[i].isLab === 0){ %>
+                      <td colspan="1">
+                        
+                          <form method = "POST" action = "/substitute/selectStaff">
+                            <input type="hidden" name="sessID" value="<%= data[i].sessID%>">
+                            <input type="hidden" name="teacherID" value="<%= data[i].id%>">
+                            <input type="hidden" name="day" value="<%= data[i].day%>">
+                            <input type="hidden" name="sessNo" value="<%= data[i].session_number%>">
+                            <input type="submit" class="Allocation monday" value="<%= data[i].SUBJECT%> (<%= data[i].semester%> <%= data[i].section%>)">
+                          </form>
+
+                        </td>
+                    <% } else { %>
+                      <td colspan="2">
+                          <form method = "POST" action = "/substitute/selectStaff">
+                            <input type="hidden" name="sessID" value="<%= data[i].sessID%>">
+                            <input type="hidden" name="teacherID" value="<%= data[i].id%>">
+                            <input type="hidden" name="day" value="<%= data[i].day%>">
+                            <input type="hidden" name="sessNo" value="<%= data[i].session_number%>">
+                            <input type="submit" class="Allocation monday" value="<%= data[i].SUBJECT%> (<%= data[i].semester%> <%= data[i].section%>)">
+                          </form>
+                        </td>
+                    <% j++;i++;} %>
                   <% } %>
                 <%}%>
                 <% if(!haveSubject){ %>
@@ -54,13 +86,29 @@
               <% for(var j=1; j < 8 ; j++) {%>
                 <% let haveSubject=false %>
                 <% for(var i=0; i < data.length ; i++) {%>
-                  <% if(data[i].Day == "TUE" && data[i].session_number == j) {%>
+                  <% if(data[i].day == "TUE" && data[i].session_number == j) {%>
                     <% haveSubject =true %>
-                    <td colspan="1">
-                      <button class="Allocation tuesday">
-                        <%= data[i].SUBJECT%> <b><%= data[i].semester%>  <%= data[i].section%> </b>
-                      </button>
-                    </td>
+                    <% if(data[i].isLab === 0){ %>
+                      <td colspan="1">
+                          <form method = "POST" action = "/substitute/selectStaff">
+                            <input type="hidden" name="sessID" value="<%= data[i].sessID%>">
+                            <input type="hidden" name="teacherID" value="<%= data[i].id%>">
+                            <input type="hidden" name="day" value="<%= data[i].day%>">
+                            <input type="hidden" name="sessNo" value="<%= data[i].session_number%>">
+                            <input type="submit" class="Allocation tuesday" value="<%= data[i].SUBJECT%> (<%= data[i].semester%> <%= data[i].section%>)">
+                          </form>
+                        </td>
+                    <% } else { %>
+                      <td colspan="2">
+                          <form method = "POST" action = "/substitute/selectStaff">
+                            <input type="hidden" name="sessID" value="<%= data[i].sessID%>">
+                            <input type="hidden" name="teacherID" value="<%= data[i].id%>">
+                            <input type="hidden" name="day" value="<%= data[i].day%>">
+                            <input type="hidden" name="sessNo" value="<%= data[i].session_number%>">
+                            <input type="submit" class="Allocation tuesday" value="<%= data[i].SUBJECT%> (<%= data[i].semester%> <%= data[i].section%>)">
+                          </form>
+                        </td>
+                    <% j++;i++;} %>
                   <% } %>
                 <%}%>
                 <% if(!haveSubject){ %>
@@ -75,13 +123,29 @@
               <% for(var j=1; j < 8 ; j++) {%>
                 <% let haveSubject=false %>
                 <% for(var i=0; i < data.length ; i++) {%>
-                  <% if(data[i].Day == "WED" && data[i].session_number == j) {%>
+                  <% if(data[i].day == "WED" && data[i].session_number == j) {%>
                     <% haveSubject =true %>
-                    <td colspan="1">
-                      <button class="Allocation wednesday">
-                        <%= data[i].SUBJECT%> <b><%= data[i].semester%>  <%= data[i].section%> </b>
-                      </button>
-                    </td>
+                    <% if(data[i].isLab === 0){ %>
+                      <td colspan="1">
+                          <form method = "POST" action = "/substitute/selectStaff">
+                            <input type="hidden" name="sessID" value="<%= data[i].sessID%>">
+                            <input type="hidden" name="teacherID" value="<%= data[i].id%>">
+                            <input type="hidden" name="day" value="<%= data[i].day%>">
+                            <input type="hidden" name="sessNo" value="<%= data[i].session_number%>">
+                            <input type="submit" class="Allocation wednesday" value="<%= data[i].SUBJECT%> (<%= data[i].semester%> <%= data[i].section%>)">
+                          </form>
+                        </td>
+                    <% } else { %>
+                      <td colspan="2">
+                          <form method = "POST" action = "/substitute/selectStaff">
+                            <input type="hidden" name="sessID" value="<%= data[i].sessID%>">
+                            <input type="hidden" name="teacherID" value="<%= data[i].id%>">
+                            <input type="hidden" name="day" value="<%= data[i].day%>">
+                            <input type="hidden" name="sessNo" value="<%= data[i].session_number%>">
+                            <input type="submit" class="Allocation wednesday" value="<%= data[i].SUBJECT%> (<%= data[i].semester%> <%= data[i].section%>)">
+                          </form>
+                        </td>
+                    <% j++;i++;} %>
                   <% } %>
                 <%}%>
                 <% if(!haveSubject){ %>
@@ -96,13 +160,29 @@
               <% for(var j=1; j < 8 ; j++) {%>
                 <% let haveSubject=false %>
                 <% for(var i=0; i < data.length ; i++) {%>
-                  <% if(data[i].Day == "THU" && data[i].session_number == j) {%>
+                  <% if(data[i].day == "THU" && data[i].session_number == j) {%>
                     <% haveSubject =true %>
-                    <td colspan="1">
-                      <button class="Allocation friday">
-                        <%= data[i].SUBJECT%> <b><%= data[i].semester%>  <%= data[i].section%> </b>
-                      </button>
-                    </td>
+                    <% if(data[i].isLab === 0){ %>
+                      <td colspan="1">
+                          <form method = "POST" action = "/substitute/selectStaff">
+                            <input type="hidden" name="sessID" value="<%= data[i].sessID%>">
+                            <input type="hidden" name="teacherID" value="<%= data[i].id%>">
+                            <input type="hidden" name="day" value="<%= data[i].day%>">
+                            <input type="hidden" name="sessNo" value="<%= data[i].session_number%>">
+                            <input type="submit" class="Allocation thursday" value="<%= data[i].SUBJECT%> (<%= data[i].semester%> <%= data[i].section%>)">
+                          </form>
+                        </td>
+                    <% } else { %>
+                      <td colspan="2">
+                          <form method = "POST" action = "/substitute/selectStaff">
+                            <input type="hidden" name="sessID" value="<%= data[i].sessID%>">
+                            <input type="hidden" name="teacherID" value="<%= data[i].id%>">
+                            <input type="hidden" name="day" value="<%= data[i].day%>">
+                            <input type="hidden" name="sessNo" value="<%= data[i].session_number%>">
+                            <input type="submit" class="Allocation thursday" value="<%= data[i].SUBJECT%> (<%= data[i].semester%> <%= data[i].section%>)">
+                          </form>
+                        </td>
+                    <% j++;i++;} %>
                   <% } %>
                 <%}%>
                 <% if(!haveSubject){ %>
@@ -118,13 +198,29 @@
               <% for(var j=1; j < 8 ; j++) {%>
                 <% let haveSubject=false %>
                 <% for(var i=0; i < data.length ; i++) {%>
-                  <% if(data[i].Day == "FRI" && data[i].session_number == j) {%>
+                  <% if(data[i].day == "FRI" && data[i].session_number == j) {%>
                     <% haveSubject =true %>
-                    <td colspan="1">
-                      <button class="Allocation">
-                        <%= data[i].SUBJECT%> <b><%= data[i].semester%>  <%= data[i].section%> </b>
-                      </button>
-                    </td>
+                    <% if(data[i].isLab === 0){ %>
+                      <td colspan="1">
+                          <form method = "POST" action = "/substitute/selectStaff">
+                            <input type="hidden" name="sessID" value="<%= data[i].sessID%>">
+                            <input type="hidden" name="teacherID" value="<%= data[i].id%>">
+                            <input type="hidden" name="day" value="<%= data[i].day%>">
+                            <input type="hidden" name="sessNo" value="<%= data[i].session_number%>">
+                            <input type="submit" class="Allocation friday" value="<%= data[i].SUBJECT%> (<%= data[i].semester%> <%= data[i].section%>)">
+                          </form>
+                        </td>
+                    <% } else { %>
+                      <td colspan="2">
+                          <form method = "POST" action = "/substitute/selectStaff">
+                            <input type="hidden" name="sessID" value="<%= data[i].sessID%>">
+                            <input type="hidden" name="teacherID" value="<%= data[i].id%>">
+                            <input type="hidden" name="day" value="<%= data[i].day%>">
+                            <input type="hidden" name="sessNo" value="<%= data[i].session_number%>">
+                            <input type="submit" class="Allocation friday" value="<%= data[i].SUBJECT%> (<%= data[i].semester%> <%= data[i].section%>)">
+                          </form>
+                        </td>
+                    <% j++;i++;} %>
                   <% } %>
                 <%}%>
                 <% if(!haveSubject){ %>
@@ -135,7 +231,12 @@
           </tbody>
         </table>
       </div>
-      <h3 class="fotter_message">Click on a subject that you want substitute for <span class="highlight">in case of labs , click on the first hour</span></h3>
+      <h3 class="fotter_message">Click on a subject that you want substitute for</h3>
     </div>
+    <script
+  src="https://code.jquery.com/jquery-3.4.1.js"
+  integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
+  crossorigin="anonymous"></script>
+    <script defer src="/timetable/script.js"></script>
 </body>
 </html> 

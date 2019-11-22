@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const TDB = require('../database/TeacherDB')
+const TDB = require('../api/database/TeacherDB')
 
 
 
@@ -21,13 +21,14 @@ router.post("/substitute" , (req,res)=>{
     .then((conn)=>{
             conn.query(`SELECT
                             teacher.id AS id,
-                            timetable.day as Day, 
+                            timetable.day as day, 
                             teacher.Name AS NAME,
                             subjects.coursename AS SUBJECT,
                             session.Section as section,
                             session.semester as semester,
                             timetable.sess_no as session_number,
-                            session.section as section
+                            session.SessID as sessID,
+                            subjects.isLab as isLab
                         FROM
                             timetable
                         JOIN session ON session.SessID = timetable.sess_id
@@ -40,7 +41,7 @@ router.post("/substitute" , (req,res)=>{
                 res.json({"message":"Could not find the data you are looking for!"})
             }
             else{
-                console.log(results)
+                //console.log(results)
                 //res.json(results)
                 res.render("./timetable/index.ejs" , {data:results})
             }
@@ -55,42 +56,6 @@ router.post("/substitute" , (req,res)=>{
     })
 });
 
-router.get("/profile",(req,res)=>{
-    res.status(404).json({message:"No ID Sepcified!"})
-});
-
-
-router.get("/profile/:id",(req,res)=>{
-    const name = req.params.id;
-    if(!name){
-        res.status(404).json({message:"No data found!"})
-    }
-    else{
-        const x = new TDB();
-    x.connect()
-    .then((conn)=>{
-        // conn.query(`select * from TimeTable where Sess`+sessId+` IS NULL AND TeacherID IN (Select id from teacher join department on dept_no = deptNumber where deptName = ?)`,[dept], (err , results)=>{
-        //     res.send(results)
-        // })
-        conn.query(`select * from teacher where Name = ?`,[name], (err , results)=>{
-            conn.destroy()
-            console.log(results)
-            res.render("./dashboard/index.ejs" , {
-                name : results[0].Name,
-                totalAsked : results[0].totalAsked,
-                totalTaken : results[0].totalTaken, 
-            })
-        })
-    })
-    .catch((e)=>{
-        console.log(e);
-        res.status(500).json({
-            message:"Mysql Error",
-            desc:e
-        })
-    })
-    }
-})
 
 
 router.get("/free",(req,res)=>{
