@@ -6,6 +6,47 @@ body{
     justify-content: center;
     align-items: center;
 }
+.overlay{
+    position: fixed;
+    top:0;
+    left:-100vw;
+    z-index: 8999;
+    width: 100vw;
+    height: 100vh;
+    background:rgba(255, 97, 97 , 1) ;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+textarea{
+    width: 95%;
+}
+.overlay button{
+    padding:7px 15px;
+    border-style: none;
+    font-size: 15px;
+    margin:10px auto;
+}
+
+.cancel{
+    background: white;
+    color: rgb(255, 97, 97);
+}
+.send{
+    background: rgb(255, 97, 97); 
+    color:white;
+}
+
+.overlay_cont{
+    padding:20px;
+    background: white;
+    border-radius: 7px;
+    box-shadow: 9px 6px 17px 2px rgba(0, 0, 0, 0.061);
+}
+
+a{
+    color:black;
+}
 
 .fa{
     width:100%;
@@ -77,7 +118,7 @@ body{
 
 
 .cont{
-    margin-left: 100px;
+    margin: 100px;
 }
 
 
@@ -104,7 +145,7 @@ button{
     box-shadow: 9px 6px 17px 2px rgba(0,0,0,0.1);
     border-radius: 20px;
     padding:10px;
-    margin-top:15px;
+    margin:10px 0px;
     display: flex;
     justify-content: space-between;
     flex-direction: row;
@@ -123,11 +164,11 @@ button{
 
 .Timetable{
     border-radius: 7px;
-    overflow: scroll;
     background: rgb(218, 218, 218);
     box-shadow: 9px 6px 17px 2px rgba(0,0,0,0.1);
     display: flex;
     align-items: center;
+    padding:20px;
     flex-direction: column;
 }
 
@@ -235,9 +276,9 @@ td{
         overflow: scroll;
     }
     .cont{
+        margin:0px;
         margin-top: 70px;
-        margin-left: 0;
-        max-width: 95vw;
+        width: 100vw;
         overflow: auto;
     }
     .Timetable__table{

@@ -4,13 +4,13 @@ class TeacherDB{
     connect(){
         return new Promise((resolve,rej)=>{
             try{
-                this.connection = mysql.createConnection({
+                this.connection = mysql.createPool({
+                    connectionLimit : 10,
                     host     : 'remotemysql.com',
                     user     : 'EHDxCOwisX',
-                    password : process.env.DB_PASS,
+                    password :  process.env.DB_PASS,
                     database : 'EHDxCOwisX'
                   });
-                this.connection.connect();
                 resolve(this.connection);
             }
             catch(e){ 
@@ -20,6 +20,11 @@ class TeacherDB{
         })
     }
 }
+
+
+
+
+
 module.exports = TeacherDB;
 
 

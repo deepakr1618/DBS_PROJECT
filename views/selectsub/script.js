@@ -1,16 +1,24 @@
 
 const timetable = document.querySelector('.Timetable');
+const overlay = document.querySelector(".overlay");
 const t1 = new TimelineMax();
-$(".Timetable").css({"height":"0px"});
 
-function load_free_staff(tid , sessid , sess_no, day){
+let sourceID="",sessid="",sess_no="",day="" , destTID = "" , message = "" , destName = "";
+$(".Timetable").css({"opacity":"0"});
+
+function send_req(sourceTID ,destTID,  sessid , sess_no, day , message){
+    console.log(({sourceTID,destTID,sessid , sess_no ,day , message}))
     $.ajax({
-        url: '/api/freefetch',
+        url: '/api/sendRequestToDest',
         type: 'POST',
         contentType: 'application/json',
-        data: JSON.stringify({tid,sessid,sess_no,day}),
+        data: JSON.stringify({sourceTID,destTID,sessid , sess_no ,day , message}),
         success: (response)=>{
-            console.log(response)
+            if(response.message === "Success"){
+                
+            }else{
+
+            }
         },
         error : (xhr,status,error)=>{
             alert("Something went wrong please refresh the page")
@@ -19,17 +27,33 @@ function load_free_staff(tid , sessid , sess_no, day){
     });
 }
 
+$(".send").on("click" , (e)=>{
+    if(confirm("Send request to "+destName+"?")){
+        message = $(".message_t").val()
+        send_req(sourceID , destTID , sessid , sess_no , day , message)
+    }else{
+        alert("No requests were sent!")
+    }
+})
+
+$(".cancel").on("click",(e)=>{
+    t1.fromTo(overlay , 0.5 ,{left:"0",opacity:"1"} , { left:"100vw",opacity:"0" })
+
+})
+
 $(document).ready(function(){
     console.log("Loaded the script!");
     setTimeout((e)=>{
-        t1.fromTo(timetable , 1 ,{height:"0px" , opacity:"0"} , {height:"540px" , opacity:"1"})
+        t1.fromTo(timetable , 1 ,{opacity:"0px"} , { opacity:"1"})
     },2000)
-    let sourceID="",sessid="",sess_no="",day="";
     $(".selectStaff").on("click",(e)=>{
         sourceID = $("input[name=sourceID]").val();
         sessid = $("input[name=sessid]").val();
         sess_no = $("input[name=sess_no]").val();
         day = $("input[name=day]").val();
-        console.log(sourceID , sessid , sess_no , day)
+        destTID = e.target.getAttribute("data-destTID");
+        destName = e.target.getAttribute("data-destName");
+        $(".dest_name_cont").text(destName)
+        t1.fromTo(overlay , 1 ,{ left:"-100vw",opacity:"0"}, {left:"0",opacity:"1"})
     })
 });

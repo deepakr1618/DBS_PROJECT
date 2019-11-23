@@ -4,12 +4,10 @@ const TDB = require('../api/database/TeacherDB')
 
 
 
-router.get("/substitute",(req,res)=>{
-    res.redirect("./profile/")
-})
 
-router.post("/substitute" , (req,res)=>{
-    const Tid = req.body.id;
+
+router.get("/timetable" , (req,res)=>{
+    const Tid = req.session.tid;
     const x = new TDB();
     if(Tid===""){
         res.status(500).json({
@@ -36,7 +34,6 @@ router.post("/substitute" , (req,res)=>{
                         JOIN subjects ON session.SubjectID = subjects.courseID
                         WHERE timetable.t_id = ?
                         ORDER BY  day`,[Tid], (err , results)=>{
-                            conn.destroy()
             if(err){
                 res.json({"message":err})
             }

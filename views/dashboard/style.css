@@ -1,3 +1,7 @@
+*{
+  font-family: 'Poppins', sans-serif;
+}
+
 body{
   font-family: 'Poppins', sans-serif;
   font-size:15px;
@@ -5,19 +9,24 @@ body{
   display: flex;
   flex-direction:  column;
 }
+
+a{
+  color:black;
+  text-decoration: none;
+}
 .show_score{
-  margin:20px auto;
-  width:100%;
+  margin:40px auto;
+  width:90%;
   display: flex;
   align-items: center;
-  justify-content: space-evenly;
+  justify-content: space-around;
 }
 .score{
-  width:400px;
+  width:300px;
   padding:10px 0px;
   background:rgb(255, 97, 97);
   color:white;
-  font-size: 15px;
+  font-size: 15px; 
   display: flex;
   align-items: center;
   justify-content: center;
@@ -27,8 +36,14 @@ body{
 
 }
 
+.welcomeName{
+  color:rgb(255, 97, 97);
+}
+
 .val{
-  font-size: 42px;
+  font-size:30px;
+  line-height: 1px;
+  margin:0px
 }
 
 
@@ -65,6 +80,7 @@ body{
   width:100%;
   margin:12px auto;
 }
+
 
 .active_opt{
   box-sizing: border-box;
@@ -104,6 +120,63 @@ body{
 .cont{
   margin-left: 100px;
 }
+
+.yes{
+  margin:20px 0px;
+  padding:15px 25px;
+  border-radius: 7px;
+  color:rgb(255, 97, 97);
+  font-size: 15px;
+  border:2px solid rgb(255, 97, 97);
+  transition: 0.4s all ease;
+  background: white;
+}
+
+.yes:hover{
+  color:white;
+  background:rgb(255, 97, 97);
+  border:2px solid white;
+}
+
+
+.bottom_cont{
+  width:90%;
+  height: 250px;
+  margin:20px auto;
+  padding:20px 20px;
+  display: flex;
+  flex-direction: row;
+  font-size: 15px;
+  align-items: center;
+  justify-content: space-evenly;
+}
+
+.accepted{
+  width: 90%;
+  margin: 10px auto;
+}
+
+.accepted_list{
+  background: rgb(219, 219, 219);
+  min-width: 90%;
+  min-height: 600px;
+  padding:20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.each_sess , .sess_header , .message{
+  width: 95%;
+  padding: 10px;
+  background: white;
+  display: flex;
+  justify-content: space-between;
+  font-size: 20px;
+}
+.each_sess{
+  flex-direction: column;
+}
+
 
 
 button{
@@ -241,6 +314,18 @@ td{
 }
 
 @media (max-width: 479px) {
+  .bottom_cont{
+    flex-direction:  column;
+    width:70%;
+  }
+  .show_score{
+    flex-direction: column;
+    width:90%;
+  }
+  .score{
+    margin:10px auto;
+    width: 200px;
+  }
   .navleft{
       width:100vw;
       height: 60px;

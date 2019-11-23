@@ -16,16 +16,32 @@
   <input type="hidden" name="sessid" value="<%=sessid%>">
   <input type="hidden" name="sess_no" value="<%=sess_no%>">
   <input type="hidden" name="day" value="<%=day%>">
+  <div class="overlay">
+    <div class="overlay_cont">
+      <h3>Enter a message you would like to send along </h3>
+      <h3>To : <span class="dest_name_cont"></span></h3>
+      <textarea class="message_t"></textarea><br>
+      <button class="cancel">Cancel</button>
+      <button class="send">Send</button>
+    </div>  
+  </div>
   <div class="navleft">
-    <div class="x profile ">
+    <a class="x" href="/profile">
+    <div class=" profile ">
         <i class="fa fa-user-circle" aria-hidden="true"></i>
     </div>
+    </a>
     <div class="x timetable active_opt">
         <i class="fa fa-calendar-o" aria-hidden="true"></i>
     </div>
     <div class="x requested">
         <i class="fa fa-external-link-square" aria-hidden="true"></i>
     </div>
+    <a href="/logout">
+      <div class="x logout">
+          <i class="fa fa-power-off" aria-hidden="true"></i>
+      </div>
+    </a>
   </div>
     <div class="cont">
         <div class="staffName">
@@ -36,7 +52,7 @@
               <div class="staff">
                   <div class="name"> <%=data[i].Name%> </div>
                   <div class="dept"> <%=data[i].deptName%> </div>
-                  <button class="selectStaff">Request</button>
+                  <button class="selectStaff" data-destTid = "<%=data[i].id%>" data-destName = "<%=data[i].Name%>">Request</button>
               </div>
             <% } %>
           </div>

@@ -2,6 +2,12 @@ const express = require('express');
 const TDB = require('../api/database/TeacherDB')
 const router = express.Router();
 
+
+router.get("/selectStaff",(req,res)=>{
+    res.status(404).json({message:"Not allowed"})
+})
+
+
 router.post("/selectStaff" , (req,res)=>{
    try{
         const tid = req.body.teacherID;
@@ -12,7 +18,6 @@ router.post("/selectStaff" , (req,res)=>{
         x.connect()
         .then((conn)=>{
             conn.query(`SELECT DISTINCT
-
             teacher.id,
             teacher.Name,
             department.deptName
@@ -28,13 +33,12 @@ router.post("/selectStaff" , (req,res)=>{
                 timetable t2
             WHERE
                 t2.t_id = t1.t_id AND t2.day = ? AND t2.sess_no = ?
-            ORDER BY department.deptName
-        )` , [day , sess_no], (err , results)=>{
+        )
+        ORDER BY department.deptName` , [day , sess_no], (err , results)=>{
                 if(err)
                     res.json({data:"Something went wrong while querying database!"})
                 else{
                     console.log(results)
-                    conn.destroy();
                     res.status(200).render('./selectsub/index.ejs',{sourceTID : tid , sessid , sess_no , day , data:results})
                 }
             })

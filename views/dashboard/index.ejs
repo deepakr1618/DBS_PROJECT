@@ -13,30 +13,60 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/2.1.3/TimelineMax.min.js"></script>
 </head>
 <body>
+  <input type="hidden" value="<%=id%>"> 
   <div class="navleft">
     <div class="x profile active_opt">
         <i class="fa fa-user-circle" aria-hidden="true"></i>
     </div>
-    <div class="x timetable">
+    <a href="/teachers/timetable">
+      <div class="x timetable">
         <i class="fa fa-calendar-o" aria-hidden="true"></i>
-    </div>
+      </div>
+    </a>
     <div class="x requested">
         <i class="fa fa-external-link-square" aria-hidden="true"></i>
     </div>
+    <a href="/logout">
+      <div class="x logout">
+          <i class="fa fa-power-off" aria-hidden="true"></i>
+      </div>
+    </a>
   </div>
     <div class="cont">
         <div class="staffName">
-            <h1>Welcome , <%= name%></h1>
+            <h1>Welcome , <span class="welcomeName"><%= name%></span></h1>
             <div class="show_score">
                <div class="total_asked score">
-                  You have asked
+                  You have taken substitute
                   <span class="val"><pre><i class="fas fa-handshake"></i>  <%= totalAsked%></pre></span>
+                  times
                </div>
                <div class="total_taken score">
                   You have substituted
                   <span class="val"><pre><i class="far fa-handshake"></i>  <%= totalTaken%></pre></span>
+                  times
                </div>
             </div>
+         </div>
+         <div class="bottom_cont">
+           <h3>Looking for substitute ?</h3>
+           <a href="/teachers/timetable">
+            <button class="yes">Find Substitute</button>
+          </a>
+         </div>
+         <div class="accepted">
+           <h3>Classed you have accepted for </h3>
+          <div class="accepted_list">
+            <div class="each_sess">
+              <div class="sess_header">
+                  <span class="for">For:<b>Mamatha</b></span>
+                  <span class="class">Class : <b>5A</b></span>
+                  <span class="time">Starts at :<b>9:55</b></span>
+                  <span class="sub">Subject: <b>DBMS</b></span>
+              </div>
+              <div class="message">Message:<b> This class is for next week (30/11)</b></div>
+            </div>
+          </div>
          </div>
     </div>
     <script

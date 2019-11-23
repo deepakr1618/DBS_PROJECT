@@ -12,16 +12,24 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/2.1.3/TimelineMax.min.js"></script>
 </head>
 <body>
+  <input type='hidden' value="<%=id%>">
   <div class="navleft">
+    <a class="x" href="/profile">
     <div class="x profile ">
         <i class="fa fa-user-circle" aria-hidden="true"></i>
     </div>
+    </a>
     <div class="x timetable active_opt">
         <i class="fa fa-calendar-o" aria-hidden="true"></i>
     </div>
     <div class="x requested">
         <i class="fa fa-external-link-square" aria-hidden="true"></i>
     </div>
+    <a href="/logout">
+      <div class="x logout">
+          <i class="fa fa-power-off" aria-hidden="true"></i>
+      </div>
+    </a>
   </div>
     <div class="cont">
         <div class="staffName">
