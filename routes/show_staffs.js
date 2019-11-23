@@ -1,5 +1,5 @@
 const express = require('express');
-const TDB = require('../database/TeacherDB')
+const TDB = require('../api/database/TeacherDB')
 const router = express.Router();
 
 router.post("/selectStaff" , (req,res)=>{

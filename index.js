@@ -4,7 +4,7 @@ const TDB = require('./api/database/TeacherDB')
 const bodyParser = require('body-parser')
 const t_info = require('./routes/teacher_info')
 const profile = require("./routes/profile")
-const apiEndpoints = require("./api/api-endpoints/searchinEndPoint")
+const apiEndpoints = require("./routes/show_staffs")
 const checkLogin = require("./routes/checkLogin")
 
 
