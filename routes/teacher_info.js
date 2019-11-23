@@ -38,12 +38,15 @@ router.post("/substitute" , (req,res)=>{
                         ORDER BY  day`,[Tid], (err , results)=>{
                             conn.destroy()
             if(err){
-                res.json({"message":"Could not find the data you are looking for!"})
+                res.json({"message":err})
             }
             else{
                 //console.log(results)
                 //res.json(results)
-                res.render("./timetable/index.ejs" , {data:results})
+                if(!results[0])
+                  res.json({message:"No data found"})
+                else
+                  res.render("./timetable/index.ejs" , {data:results})
             }
         })
     })
