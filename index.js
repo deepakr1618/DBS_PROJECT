@@ -12,7 +12,8 @@ const show_staffs = require("./routes/show_staffs")
 const checkLogin = require("./routes/checkLogin")
 const logout = require("./routes/logout")
 const checkSession = require("./routes/checkSession")
-const api = require('./api/endpoints/sub-request')
+const apiSub = require('./api/endpoints/sub-request')
+const apiAccepted = require('./api/endpoints/accepted-classes')
 
 
 app.use(bodyParser.urlencoded({ extended: false}))
@@ -28,7 +29,9 @@ app.use(express.static("views"));
 
 
 app.use("/login" , checkLogin)
-app.use("/api",api)
+app.use("/api",apiSub)
+app.use("/api",apiAccepted)
+app.use("/api/*",(req,res,next)=>{res.status(404).json({message:"No Such Endpoint"})})
 
 
 

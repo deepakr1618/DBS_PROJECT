@@ -15,9 +15,9 @@ function send_req(sourceTID ,destTID,  sessid , sess_no, day , message){
         data: JSON.stringify({sourceTID,destTID,sessid , sess_no ,day , message}),
         success: (response)=>{
             if(response.message === "Success"){
-                
+                console.log("DONE")
             }else{
-
+                console.log("FAILED")
             }
         },
         error : (xhr,status,error)=>{

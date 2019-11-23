@@ -43,7 +43,7 @@ router.get("/timetable" , (req,res)=>{
                 if(!results[0])
                   res.json({message:"No data found"})
                 else
-                  res.render("./timetable/index.ejs" , {data:results})
+                  res.render("./timetable/index.ejs" , {id:Tid,data:results})
             }
         })
     })

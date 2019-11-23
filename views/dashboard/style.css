@@ -175,8 +175,11 @@ a{
 }
 .each_sess{
   flex-direction: column;
+  margin:10px auto;
 }
-
+.message{
+  justify-content: flex-start;
+}
 
 
 button{
@@ -313,10 +316,19 @@ td{
   height: 50px;
 }
 
-@media (max-width: 479px) {
+@media (max-width: 1300px) {
+  
+  .sess_header{
+    flex-direction: column;
+  }
+}
+@media (max-width: 700px) {
   .bottom_cont{
     flex-direction:  column;
     width:70%;
+  }
+  .sess_header{
+    flex-direction: column;
   }
   .show_score{
     flex-direction: column;
@@ -324,7 +336,7 @@ td{
   }
   .score{
     margin:10px auto;
-    width: 200px;
+    width: 250px;
   }
   .navleft{
       width:100vw;

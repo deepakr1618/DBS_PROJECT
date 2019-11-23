@@ -18,15 +18,14 @@ router.post("/sendRequestToDest",(req,res)=>{
     const sess_id = req.body.sessid;
     const sess_no = req.body.sess_no;
     let day = req.body.day;
-    const days = {"MON":"MONDAY" , "TUE":"TUESDAY" , "WED":"WEDNESDAY" , "THU":"THURSDAY" , "FRI":"FRIDAY"}
-    day = days[day]
     const message = req.body.message;
     const x = new TDB();
     const reqID = getRandomInt(10000,999999)
     x.connect()
     .then((conn)=>{
-        conn.query("insert into Requested value(?,?,?,?,?)" , [reqID , stid , dtid , sess_id , message+" ON DAY :"+day]
+        conn.query("insert into Requested(ReqID , sourceTID , destTID , SessID , message  , day) value(?,?,?,?,?,?)" , [reqID , stid , dtid , sess_id , message , day ]
         ,(err,results)=>{
+        console.log(err)
         if(err)
              res.json({message:"Failure"})
         else{
