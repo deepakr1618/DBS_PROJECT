@@ -23,8 +23,11 @@ FROM
 JOIN teacher ON logindetails.tid = teacher.id
 WHERE
     logindetails.username = ? AND logindetails.password = ?`,[username,password],(err, teacher)=>{
-      if(err)
+      if(err){
+        console.log(err)
         res.status(404).json({message:"Data does not exist."})
+
+      }
       else{
         if(teacher.length == 0)
           res.status(404).json({message:"user does not exist."})

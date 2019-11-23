@@ -6,7 +6,7 @@ const t_info = require('./routes/teacher_info')
 const profile = require("./routes/profile")
 const apiEndpoints = require("./routes/show_staffs")
 const checkLogin = require("./routes/checkLogin")
-
+const env = require('dotenv').config()
 
 app.use(express.static("views"));
 
@@ -21,6 +21,8 @@ app.use("/profile" , profile)
 app.use("/substitute" , apiEndpoints)
 app.use("/login" , checkLogin)
 
+
+console.log(process.env.DB_PASS)
 
 app.get("/" , (req,res)=>{
     res.render("./login/index.ejs")

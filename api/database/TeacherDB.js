@@ -7,7 +7,7 @@ class TeacherDB{
                 this.connection = mysql.createConnection({
                     host     : 'remotemysql.com',
                     user     : 'EHDxCOwisX',
-                    password : 'qck3tztqOR',
+                    password : process.env.DB_PASS,
                     database : 'EHDxCOwisX'
                   });
                 this.connection.connect();
