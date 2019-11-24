@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Timetable</title>
+    <link rel="stylesheet" href="/pending/style.css">
+    <script src="https://kit.fontawesome.com/a076d05399.js"></script>
+    <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css?family=Poppins&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/2.1.3/TweenMax.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/2.1.3/TimelineMax.min.js"></script>
+</head>
+<body>
+  <div class="navleft">
+    <a class="x" href="/profile">
+    <div class="x profile ">
+        <i class="fa fa-user-circle" aria-hidden="true"></i>
+    </div>
+    </a>
+    <a class="x" href="/teachers/timetable">
+      <div class="timetable">
+        <i class="fa fa-calendar-o" aria-hidden="true"></i>
+      </div>
+    </a>
+    <div class="x pending_page active_opt">
+      <i class="far fa-check-circle "></i>
+    </div>
+    <a class="x" href="/logout">
+      <div class="logout">
+          <i class="fa fa-power-off" aria-hidden="true"></i>
+      </div>
+    </a>
+  </div>
+    <div class="cont">
+        <div class="staffName">
+            <% if (data.length != 0) { %>
+              <h1>Welcome , <span class="welcomeName"><%= name%></span></h1>
+            <% }else{ %>
+              <h1>You have no pending requests</h1>
+            <% } %>
+          <div class="pending">
+              <% if (data.length != 0) { %>
+                <h2>Your pending list </h2><br>
+              <% }%>
+            <p class="margin:2px 0px;">Note : Rejecting wont notify the requester.</p>
+           <div class="pending_list">
+              <% if(data.length != 0) {
+                  for(let i=0 ; i < data.length ; i++){%>
+                    <div class="each_sess">
+                      
+                        <form action="/api/acceptRequest" method="POST">
+                            <input type="hidden" name="request_id" value="<%=data[i].rid%>">
+                            <input type="hidden" name="taking_tid" value="<%=data[i].takingTID%>">
+                            <div class="sess_header">
+                                <span class="for">Request From: <b><%=data[i].askingTeacher%></b></span>
+                                <span class="class">Class : <b><%=data[i].semester%> (<%=data[i].section%>)</b></span>
+                            </div>
+                            <div class="sess_header">
+                                <span class="time">Timing :<b><%=data[i].time%></b></span>
+                                <span class="sub">Day: <b><%=data[i].day%></b></span>
+                            </div>
+                            
+                            <div class="message">
+                                <span class="sub">Subject : <b><%=data[i].subject%></b></span>
+                              <span class="mess"> Message:<b><%=data[i].message%></b></span>
+                            </div>
+                            <div class="bottom_buttons">
+                                <button type="submit"  name="mode" value="accept" class="accept_class">
+                                    <i class="far fa-thumbs-up" style="font-size:20px;width:auto;margin-right: 10px;"></i>
+                                    <h3 style="margin:0px;"> Accept</h3>
+                                </button>
+                                <button type="submit" name="mode" value="reject" class="reject_class">
+                                    <i class="far fa-thumbs-down" style="font-size:20px;width:auto;margin-right: 10px;"></i>
+                                    <h3 style="margin:0px;"> Reject</h3>
+                                </button>
+                            </div>
+                          </form>
+                      </div>
+              <% }
+              } %>
+           </div>
+         </div>
+    </div>
+    <script
+  src="https://code.jquery.com/jquery-3.4.1.js"
+  integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
+  crossorigin="anonymous"></script>
+    <script defer src="/pending/script.js"></script>
+</body>
+</html> 

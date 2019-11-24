@@ -62,7 +62,7 @@ function fetch_requested(tid){
                 $('.requested_list').append(`
                 <div class="each_sess">
                 <div class="sess_header">
-                    <span class="for">To :<b>`+data.takingTeacher+`</b></span>
+                    <span class="for">From:<b>`+data.takingTeacher+`</b></span>
                     <span class="class">Class : <b>`+data.semester+" "+data.section+`</b></span>
                 </div>
                 <div class="sess_header">
@@ -88,8 +88,8 @@ function fetch_requested(tid){
 
 $(document).ready(function(){
     console.log("Loaded")
-    const tid = $("input[name='tid']").val()
-    console.log(tid);
-    fetch_accepted(tid);
-    fetch_requested(tid);
+    // const tid = $("input[name='tid']").val()
+    // console.log(tid);
+    // fetch_accepted(tid);
+    // fetch_requested(tid);
 })

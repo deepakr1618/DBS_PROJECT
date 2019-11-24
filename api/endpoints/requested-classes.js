@@ -13,7 +13,7 @@ const timing = {
 }
 
 
-router.post("/fetchAcceptedClasses",(req,res)=>{
+router.post("/fetchRequestedClasses",(req,res)=>{
     const x = new TDB()
     x.connect()
     .then((conn)=>{
@@ -26,6 +26,7 @@ router.post("/fetchAcceptedClasses",(req,res)=>{
         r.SessID AS sess_id,
         subjects.coursename AS subject,
         message,
+        accepted,
         r.day as day
     FROM
         Requested r
@@ -38,9 +39,8 @@ router.post("/fetchAcceptedClasses",(req,res)=>{
             timetable.t_id = r.sourceTID AND timetable.sess_id = r.SessID AND timetable.day = r.day
         )
     WHERE
-        accepted != 0 AND r.destTID = ?
+        r.sourceTID = ?
     ORDER BY semester , section , subject`,[req.body.tid],(err,results)=>{
-                
                 Object.keys(results).map((key,index)=>{
                     results[key]["time"] = timing[results[key].sess_no]
                 })

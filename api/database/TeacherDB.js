@@ -5,7 +5,7 @@ class TeacherDB{
         return new Promise((resolve,rej)=>{
             try{
                 this.connection = mysql.createPool({
-                    connectionLimit : 10,
+                    connectionLimit : 50,
                     host     : 'remotemysql.com',
                     user     : 'EHDxCOwisX',
                     password :  process.env.DB_PASS,

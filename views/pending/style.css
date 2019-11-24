@@ -47,7 +47,7 @@ a{
 }
 
 
-.fa{
+.fa , .far{
   width:100%;
   height: 100%;
   
@@ -138,6 +138,32 @@ a{
   border:2px solid white;
 }
 
+.accept_class , .reject_class{
+  margin:20px 0px;
+  padding:10px 25px;
+  border-radius: 7px;
+  color:white;
+  font-size: 15px;
+  border:2px solid rgb(64, 138, 21);
+  transition: 0.4s all ease;
+  background: rgb(64, 138, 21);
+}
+
+.accept_class:hover{
+  color:rgb(255, 255, 255);
+  background:rgb(43, 85, 19);
+  border:2px solid white;
+}
+
+.reject_class{
+  border:2px solid rgb(255, 97, 97);
+  background: rgb(255, 97, 97);
+}
+
+.reject_class:hover{
+  border:2px solid rgb(199, 45, 45);
+  background: rgb(199, 45, 45);
+}
 
 
 .bottom_cont{
@@ -152,21 +178,14 @@ a{
   justify-content: space-evenly;
 }
 
-.accepted_requested_cont{
-  width:90%;
-  margin:0px auto;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-}
 
 
-.accepted , .requested{
-  width: 50%;
+.pending , .requested{
+  width: 100%;
   margin: 10px auto;
 }
 
-.accepted_list , .requested_list{
+.pending_list{
   background: rgb(219, 219, 219);
   width: 90%;
   padding:20px;
@@ -175,7 +194,7 @@ a{
   flex-wrap: wrap;
   align-items: center;
 }
-.each_sess , .sess_header , .message{
+.each_sess , .sess_header , .message , .bottom_buttons{
   padding: 10px;
   background: white;
   display: flex;
@@ -186,7 +205,7 @@ a{
   flex-direction: column;
 }
 .each_sess{
-  width:250px;
+  width:450px;
   min-height: 250px;
   flex-direction: column;
   margin:10px auto;
@@ -200,6 +219,10 @@ a{
 button{
   font-family: 'Poppins', sans-serif;
   cursor: pointer;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
 }
 .staffName{
   font-family: 'Poppins', sans-serif;
@@ -344,7 +367,7 @@ td{
   .accepted_requested_cont{
     flex-direction: column;
   }
-  .requested , .accepted{
+  .requested , .accepted , .pending{
     width:90%;
   }
   .sess_header{
