@@ -6,20 +6,27 @@ body{
     justify-content: center;
     align-items: center;
 }
+
+
+
 a{
     text-decoration: none;
 }
-.overlay{
+.overlay , .sent_over{
     position: fixed;
     top:0;
     left:-100vw;
-    z-index: 8999;
+    z-index: 999;
     width: 100vw;
     height: 100vh;
     background:rgba(255, 97, 97 , 1) ;
     display: flex;
     align-items: center;
     justify-content: center;
+}
+.sent_over{
+    background: white;
+    flex-direction: column;
 }
 textarea{
     width: 95%;
