@@ -17,21 +17,41 @@ router.post("/acceptRequest",(req,res)=>{
     const tid = req.session.tid;
     const req_id = req.body.request_id;
     const taking_tid = req.body.taking_tid;
+    const asking_tid = req.body.asking_tid;
+    const day = req.body.day;
+    const sessID = req.body.sess_id;
+    const mode = req.body.mode;
+    console.log({tid , asking_tid , day , sessID})
     const x = new TDB();
-    if(tid!=taking_tid){
+    if(tid!=taking_tid || asking_tid.length === 0 || day.length === 0 || !sessID){
         res.json({message:"Something went wrong please reload"})
     }
     else{
         x.connect()
         .then((conn)=>{
-            conn.query(`UPDATE Requested SET accepted = 1 WHERE ReqID = ? AND destTID = ?`,[req_id , tid],(err,results)=>{
-                if(err){
-                    console.log(err)
-                    res.status(500).json({message:"Query Error!"})
-                }else{
-                    res.redirect("/profile")
-                }
-            })
+            if(mode === "accept"){
+                conn.query(`UPDATE Requested SET accepted = 1 WHERE ReqID = ? AND destTID = ?;DELETE FROM Requested where sourceTID = ? AND SessID = ? AND day = ? AND destTID != ?`,[req_id , taking_tid , asking_tid , sessID , day , taking_tid],(err,results)=>{
+                    if(err){
+                        console.log(err)
+                        res.status(500).json({message:"Query Error!"})
+                    }else{
+                        res.redirect(req.get('referer'));
+                    }
+                })
+            }
+            else if (mode === "reject") {
+                conn.query(`delete from  Requested WHERE ReqID = ? AND destTID = ?`,[req_id , tid],(err,results)=>{
+                    if(err){
+                        console.log(err)
+                        res.status(500).json({message:"Query Error!"})
+                    }else{
+                        res.redirect(req.get('referer'));
+                    }
+                })
+            }
+            else{
+                res.json({message:"Unknown command!"})
+            }
         })
         .catch((e)=>{
             res.status(500).json({message:"Couldnt connect to server"})

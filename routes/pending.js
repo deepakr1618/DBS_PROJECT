@@ -24,6 +24,7 @@ router.get("/pending",(req,res)=>{
         dest.Name AS takingTeacher,
         dest.id AS takingTID,
         src.Name AS askingTeacher,
+        src.id AS askingTID,
         s.section AS section,
         s.semester AS semester,
         timetable.sess_no AS sess_no,

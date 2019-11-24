@@ -20,7 +20,7 @@ router.post("/" , (req , res , next)=>{
     WHERE
         username = ? AND PASSWORD = ?`,[username,password],(err,results)=>{
             console.log(results)
-            if(results){
+            if(results.length != 0){
                 req.session.tid = results[0].tid
                 res.redirect("/profile")
             }else{

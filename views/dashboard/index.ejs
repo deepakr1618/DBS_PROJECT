@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Timetable</title>
+    <title>Dashboard - <%= name%></title>
     <link rel="stylesheet" href="/dashboard/style.css">
     <script src="https://kit.fontawesome.com/a076d05399.js"></script>
     <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
@@ -36,7 +36,7 @@
   </div>
     <div class="cont">
         <div class="staffName">
-            <h1>Welcome , <span class="welcomeName"><%= name%></span></h1>
+            <h1>Welcome, <span class="welcomeName"><%= name%></span></h1>
             <div class="show_score">
                <div class="total_asked score">
                   You have taken substitute
@@ -51,7 +51,7 @@
             </div>
          </div>
          <div class="bottom_cont">
-           <h3>Looking for substitute ?</h3>
+           <h3>Looking for a substitute?</h3>
            <a href="/teachers/timetable">
             <button class="yes">Find Substitute</button>
           </a>

@@ -50,9 +50,12 @@
                   for(let i=0 ; i < data.length ; i++){%>
                     <div class="each_sess">
                       
-                        <form action="/api/acceptRequest" method="POST">
+                        <form onsubmit="return confirm('Do you really want to submit the form?');" action="/api/acceptRequest" method="POST">
                             <input type="hidden" name="request_id" value="<%=data[i].rid%>">
                             <input type="hidden" name="taking_tid" value="<%=data[i].takingTID%>">
+                            <input type="hidden" name="asking_tid" value="<%=data[i].askingTID%>">
+                            <input type="hidden" name="sess_id" value="<%=data[i].sess_id%>">
+                            <input type="hidden" name="day" value="<%=data[i].day%>">
                             <div class="sess_header">
                                 <span class="for">Request From: <b><%=data[i].askingTeacher%></b></span>
                                 <span class="class">Class : <b><%=data[i].semester%> (<%=data[i].section%>)</b></span>
