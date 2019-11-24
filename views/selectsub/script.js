@@ -1,7 +1,9 @@
 
 const timetable = document.querySelector('.Timetable');
 const overlay = document.querySelector(".overlay");
+const sentOverlay = document.querySelector(".sent_over");
 const t1 = new TimelineMax();
+
 
 let sourceID="",sessid="",sess_no="",day="" , destTID = "" , message = "" , destName = "";
 $(".Timetable").css({"opacity":"0"});
@@ -15,7 +17,10 @@ function send_req(sourceTID ,destTID,  sessid , sess_no, day , message){
         data: JSON.stringify({sourceTID,destTID,sessid , sess_no ,day , message}),
         success: (response)=>{
             if(response.message === "Success"){
-                console.log("DONE")
+                close_overlay();
+                t1.fromTo(sentOverlay , 0.5 ,{left:"-100vw",opacity:"0"} , { left:"0",opacity:"1" })
+                $(".sent_over").append(`<h2 style="margin:5px;">SENT</h2><br><img src = 'https://www.fbbc.info/wp-content/uploads/2017/08/mail-sent.gif'></img>`)
+                setTimeout(close_sent_overlay , 3000);
             }else{
                 console.log("FAILED")
             }
@@ -36,9 +41,17 @@ $(".send").on("click" , (e)=>{
     }
 })
 
-$(".cancel").on("click",(e)=>{
+function close_overlay(){
     t1.fromTo(overlay , 0.5 ,{left:"0",opacity:"1"} , { left:"100vw",opacity:"0" })
+}
 
+function close_sent_overlay(){
+    t1.fromTo(sentOverlay , 0.5 ,{left:"0",opacity:"1"} , { left:"100vw",opacity:"0" })
+}
+
+
+$(".cancel").on("click",(e)=>{
+    close_overlay();
 })
 
 $(document).ready(function(){
