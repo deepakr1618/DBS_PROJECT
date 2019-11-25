@@ -63,17 +63,17 @@ router.post("/acceptRequest", (req, res) => {
                                         conn1.query(`SELECT url_token FROM web_push where tid = ?`, [notifyTo], (err, results) => {
                                             conn1.release()
                                             if (err) {
-                                                res.status(201).json({});
+                                                console.log(err)
                                             } else {
                                                 webpush.sendNotification(JSON.parse(results[0]), payload)
                                                     .catch((err) => {
-                                                        res.status(201).json({});
                                                         console.log(err)
                                                     })
+
+                                                res.redirect(req.get('referer'));
                                             }
                                         });
                                     })
-                                res.status(201).json({});
                                 res.redirect(req.get('referer'));
                             }
                         })
