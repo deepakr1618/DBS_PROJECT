@@ -27,6 +27,7 @@ app.set('view engine', 'ejs');
 app.use(cookieSession({
     secret: process.env.SECRET,
     signed: true,
+    keys: ['test']
   }));
 app.use(bodyParser.json())
 app.use(express.static("views"));
