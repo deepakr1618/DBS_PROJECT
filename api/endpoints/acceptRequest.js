@@ -47,8 +47,8 @@ router.post("/acceptRequest", (req, res) => {
             .then((conn) => {
                 if (mode === "accept") {
                     conn.query(`
-                            UPDATE Requested SET accepted = 0 WHERE ReqID = ? AND destTID = ?;
-                            DELETE FROM Requested where sourceTID = ? AND SessID = ? AND day = ? AND destTID != ? AND accepted = 1;
+                            UPDATE Requested SET accepted = 1 WHERE ReqID = ? AND destTID = ?;
+                            DELETE FROM Requested where sourceTID = ? AND SessID = ? AND day = ? AND destTID != ? AND accepted = 0;
                             UPDATE teacher set totalTaken = totalTaken+1 where id = ? ;
                             UPDATE teacher set totalAsked = totalAsked+1 where id = ? ;`,
                         [req_id, taking_tid, asking_tid, sessID, day, taking_tid, taking_tid, asking_tid], (err, results) => {
