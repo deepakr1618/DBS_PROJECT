@@ -21,7 +21,7 @@ router.post("/acceptRequest",(req,res)=>{
     const day = req.body.day;
     const sessID = req.body.sess_id;
     const mode = req.body.mode;
-    console.log({tid , asking_tid , day , sessID})
+    console.log([taking_tid , asking_tid , asking_tid , taking_tid , asking_tid , sessID , day , taking_tid])
     if(tid!=taking_tid || asking_tid.length === 0 || day.length === 0 || !sessID){
         res.json({message:"Something went wrong please reload"})
     }
@@ -29,7 +29,12 @@ router.post("/acceptRequest",(req,res)=>{
         TDB.connect()
         .then((conn)=>{
             if(mode === "accept"){
-                conn.query(`UPDATE Requested SET accepted = 1 WHERE ReqID = ? AND destTID = ?;DELETE FROM Requested where sourceTID = ? AND SessID = ? AND day = ? AND destTID != ?`,[req_id , taking_tid , asking_tid , sessID , day , taking_tid],(err,results)=>{
+                conn.query(`
+                            UPDATE Requested SET accepted = 1 WHERE ReqID = ? AND destTID = ?;
+                            DELETE FROM Requested where sourceTID = ? AND SessID = ? AND day = ? AND destTID != ? AND accepted = 0;
+                            UPDATE teacher set totalTaken = totalTaken+1 where id = ? ;
+                            UPDATE teacher set totalAsked = totalAsked+1 where id = ? ;`,
+                [req_id , taking_tid , asking_tid , sessID , day , taking_tid , taking_tid , asking_tid ],(err,results)=>{
                     
             conn.release();
             if(err){
@@ -57,6 +62,7 @@ router.post("/acceptRequest",(req,res)=>{
             }
         })
         .catch((e)=>{
+            console.log(e)
             res.status(500).json({message:"Couldnt connect to server"})
         })
     }

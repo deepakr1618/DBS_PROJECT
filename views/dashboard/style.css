@@ -22,18 +22,18 @@ a{
   justify-content: space-around;
 }
 .score{
+  box-sizing: border-box;
   width:300px;
   padding:10px 0px;
-  background:rgb(255, 97, 97);
-  color:white;
+  color:rgb(255, 97, 97);
   font-size: 15px; 
   display: flex;
   align-items: center;
   justify-content: center;
   flex-direction: column;
   border-radius: 7px;
-  box-shadow: 9px 6px 17px 2px rgba(0, 0, 0, 0.144);
-
+  border:2px dashed rgba(255, 97, 97, 0.623);
+  box-shadow: 0px 0px 10px 2px rgba(255, 97, 97, 0.418);
 }
 
 .welcomeName{
@@ -43,9 +43,13 @@ a{
 .val{
   font-size:30px;
   line-height: 1px;
-  margin:0px
+  margin:0px;
 }
 
+.val pre{
+  white-space: unset;
+  margin: 10px;
+}
 
 .fa{
   width:100%;
@@ -190,6 +194,8 @@ a{
   min-height: 250px;
   flex-direction: column;
   margin:10px auto;
+  border-radius: 7px;
+  box-shadow: 9px 6px 17px 2px rgba(0,0,0,0.1);
 }
 .message{
   justify-content: flex-start;

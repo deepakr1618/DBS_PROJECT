@@ -19,6 +19,7 @@ function send_req(sourceTID ,destTID,  sessid , sess_no, day , message){
             if(response.message === "Success"){
                 close_overlay();
                 t1.fromTo(sentOverlay , 0.5 ,{left:"-100vw",opacity:"0"} , { left:"0",opacity:"1" })
+                $(".sent_over").empty();
                 $(".sent_over").append(`<h2 style="margin:5px;">SENT</h2><br><img src = 'https://www.fbbc.info/wp-content/uploads/2017/08/mail-sent.gif'></img>`)
                 setTimeout(close_sent_overlay , 3000);
             }else{

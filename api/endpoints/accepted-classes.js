@@ -41,7 +41,7 @@ router.post("/fetchAcceptedClasses",(req,res)=>{
         accepted != 0 AND r.destTID = ?
     ORDER BY semester , section , subject`,[req.body.tid],(err,results)=>{
             conn.release();
-               if(err | !results | results.length === 0){
+               if(req.session.tid!=req.body.tid | err | !results | results.length === 0){
                 res.json({message:"No data to send"})
                }else{
                 Object.keys(results).map((key,index)=>{
