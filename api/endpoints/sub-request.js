@@ -19,12 +19,13 @@ router.post("/sendRequestToDest",(req,res)=>{
     const sess_no = req.body.sess_no;
     let day = req.body.day;
     const message = req.body.message;
-    const x = new TDB();
     const reqID = getRandomInt(10000,999999)
-    x.connect()
+    TDB.connect()
     .then((conn)=>{
         conn.query("insert into Requested(ReqID , sourceTID , destTID , SessID , message  , day) value(?,?,?,?,?,?)" , [reqID , stid , dtid , sess_id , message , day ]
         ,(err,results)=>{
+            
+            conn.release();
         console.log(err)
         if(err)
              res.json({message:"Failure"})

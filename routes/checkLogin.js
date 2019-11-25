@@ -10,8 +10,7 @@ router.get("/",(req,res,next)=>{
 router.post("/" , (req , res , next)=>{
     const username = req.body.username;
     const password = req.body.password;
-    const x = new TDB();
-    x.connect()
+    TDB.connect()
     .then((conn)=>{
         conn.query(`SELECT
         tid
@@ -19,6 +18,7 @@ router.post("/" , (req , res , next)=>{
         logindetails
     WHERE
         username = ? AND PASSWORD = ?`,[username,password],(err,results)=>{
+            conn.release();
             console.log(results)
             if(results.length != 0){
                 req.session.tid = results[0].tid

@@ -8,10 +8,10 @@ const TDB = require('../api/database/TeacherDB')
 
 router.get("/",(req,res)=>{
     console.log(req.session.tid)
-  const x = new TDB()
-  x.connect()
+  TDB.connect()
   .then((conn)=>{
       conn.query(`select * from teacher where id = ?`,[req.session.tid], (err , results)=>{
+        conn.release();
           console.log(results)
           if(results){
             res.render("./dashboard/index.ejs" , {

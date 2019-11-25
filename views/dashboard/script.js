@@ -16,7 +16,7 @@ function fetch_accepted(tid){
         data: JSON.stringify({tid}),
         success: (response)=>{
             const results = response.results;
-            if(results.length === 0){
+            if(response.message != "Success"){
                 $(".accepted_list").append("<h3>No classes</h3>");
             }
             for(let i in results){
@@ -54,7 +54,7 @@ function fetch_requested(tid){
         data: JSON.stringify({tid}),
         success: (response)=>{
             const results = response.results;
-            if(results.length === 0){
+            if(response.message != "Success"){
                 $(".requested_list").append("<h3>No classes</h3>");
             }
             for(let i in results){

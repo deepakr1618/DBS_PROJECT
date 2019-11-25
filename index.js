@@ -5,7 +5,7 @@ const env = require('dotenv').config()
 const bodyParser = require('body-parser')
 
 
-const TDB = require('./api/database/TeacherDB')
+const DB = require('./api/database/TeacherDB')
 const t_info = require('./routes/teacher_info')
 const pending = require("./routes/pending")
 const profile = require("./routes/profile")
@@ -33,6 +33,7 @@ app.use(express.static("views"));
 
 
 
+
 app.use("/login" , checkLogin)
 app.use("/api",apiSub)
 app.use("/api",apiAccepted)
@@ -44,6 +45,7 @@ app.use("/api/*",(req,res,next)=>{res.status(404).json({message:"No Such Endpoin
 
 //RESTRICTED ACCESS
 app.use("/",checkSession)
+app.use("/",checkLogin)
 
 app.use("/teachers",t_info)
 app.use("/teachers",pending)

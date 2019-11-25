@@ -8,14 +8,13 @@ const TDB = require('../api/database/TeacherDB')
 
 router.get("/timetable" , (req,res)=>{
     const Tid = req.session.tid;
-    const x = new TDB();
     if(Tid===""){
         res.status(500).json({
             message:"No Teacher ID Secified",
             desc:e
         })
     }
-    x.connect()
+    TDB.connect()
     .then((conn)=>{
             conn.query(`SELECT
                             teacher.id AS id,
@@ -34,6 +33,7 @@ router.get("/timetable" , (req,res)=>{
                         JOIN subjects ON session.SubjectID = subjects.courseID
                         WHERE timetable.t_id = ?
                         ORDER BY  day`,[Tid], (err , results)=>{
+                            conn.release();
             if(err){
                 res.json({"message":err})
             }
@@ -83,7 +83,7 @@ router.get("/free",(req,res)=>{
         WHERE
             t1.t_id = t.t_id AND sess_no = ?
     ) AND department.deptName = ?` , [sessId , dept] , (err , results)=>{
-        conn.destroy()
+        conn.release();
             res.json(results)
         })
     })

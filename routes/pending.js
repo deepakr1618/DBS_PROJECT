@@ -16,8 +16,7 @@ const timing = {
 router.get("/pending",(req,res)=>{
     const tid = req.session.tid;
     console.log(tid)
-    const x = new TDB();
-    x.connect()
+    TDB.connect()
     .then((conn)=>{
         conn.query(`SELECT
         r.ReqID AS rid,
@@ -45,6 +44,7 @@ router.get("/pending",(req,res)=>{
     WHERE
         accepted = 0 AND r.destTID = ?
     ORDER BY semester , section , subject` ,[tid], (err, results)=>{
+        conn.release();
             if(err){
                 res.status(404).json({message:"Something went wrong on execution of query!"})
                 console.log(err)

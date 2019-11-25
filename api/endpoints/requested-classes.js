@@ -14,8 +14,7 @@ const timing = {
 
 
 router.post("/fetchRequestedClasses",(req,res)=>{
-    const x = new TDB()
-    x.connect()
+    TDB.connect()
     .then((conn)=>{
         conn.query(`SELECT
         dest.Name AS takingTeacher,
@@ -41,10 +40,16 @@ router.post("/fetchRequestedClasses",(req,res)=>{
     WHERE
         r.sourceTID = ?
     ORDER BY semester , section , subject`,[req.body.tid],(err,results)=>{
-                Object.keys(results).map((key,index)=>{
-                    results[key]["time"] = timing[results[key].sess_no]
-                })
-                res.json({message:"Success",results})
+        
+        conn.release();
+        if(err | !results | results.length === 0){
+            res.json({message:"No data to send"})
+           }else{
+            Object.keys(results).map((key,index)=>{
+                results[key]["time"] = timing[results[key].sess_no]
+            })
+            res.json({message:"Success",results})
+           }
             })
         })
         .catch((e)=>{

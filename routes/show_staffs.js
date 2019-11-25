@@ -14,8 +14,7 @@ router.post("/selectStaff" , (req,res)=>{
         const sessid = req.body.sessID;
         const sess_no = req.body.sessNo;
         const day = req.body.day;
-        const x = new TDB();
-        x.connect()
+        TDB.connect()
         .then((conn)=>{
             conn.query(`SELECT DISTINCT
             teacher.id,
@@ -35,6 +34,7 @@ router.post("/selectStaff" , (req,res)=>{
                 t2.t_id = t1.t_id AND t2.day = ? AND t2.sess_no = ?
         )
         ORDER BY department.deptName` , [day , sess_no], (err , results)=>{
+            conn.release();
                 if(err)
                     res.json({data:"Something went wrong while querying database!"})
                 else{

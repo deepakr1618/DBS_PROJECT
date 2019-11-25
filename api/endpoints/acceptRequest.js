@@ -22,16 +22,17 @@ router.post("/acceptRequest",(req,res)=>{
     const sessID = req.body.sess_id;
     const mode = req.body.mode;
     console.log({tid , asking_tid , day , sessID})
-    const x = new TDB();
     if(tid!=taking_tid || asking_tid.length === 0 || day.length === 0 || !sessID){
         res.json({message:"Something went wrong please reload"})
     }
     else{
-        x.connect()
+        TDB.connect()
         .then((conn)=>{
             if(mode === "accept"){
                 conn.query(`UPDATE Requested SET accepted = 1 WHERE ReqID = ? AND destTID = ?;DELETE FROM Requested where sourceTID = ? AND SessID = ? AND day = ? AND destTID != ?`,[req_id , taking_tid , asking_tid , sessID , day , taking_tid],(err,results)=>{
-                    if(err){
+                    
+            conn.release();
+            if(err){
                         console.log(err)
                         res.status(500).json({message:"Query Error!"})
                     }else{
@@ -41,7 +42,9 @@ router.post("/acceptRequest",(req,res)=>{
             }
             else if (mode === "reject") {
                 conn.query(`delete from  Requested WHERE ReqID = ? AND destTID = ?`,[req_id , tid],(err,results)=>{
-                    if(err){
+                    
+            conn.release();
+            if(err){
                         console.log(err)
                         res.status(500).json({message:"Query Error!"})
                     }else{
