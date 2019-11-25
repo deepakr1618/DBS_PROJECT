@@ -33,6 +33,7 @@ app.set('view engine', 'ejs');
 app.use(cookieSession({
   secret: process.env.SECRET,
   signed: true,
+  keys: ['deepak']
 }));
 app.use(bodyParser.json())
 app.use(express.static("views"));
