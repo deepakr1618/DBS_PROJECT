@@ -11,6 +11,52 @@
     <link href="https://fonts.googleapis.com/css?family=Poppins&display=swap" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/2.1.3/TweenMax.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/2.1.3/TimelineMax.min.js"></script>
+    <!-- The core Firebase JS SDK is always required and must be listed first -->
+<script src="https://www.gstatic.com/firebasejs/7.5.0/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/7.5.0/firebase-messaging.js"></script>
+
+<!-- TODO: Add SDKs for Firebase products that you want to use
+     https://firebase.google.com/docs/web/setup#available-libraries -->
+
+<script>
+  // Your web app's Firebase configuration
+  var firebaseConfig = {
+    apiKey: "AIzaSyBoJNVo8Yttbx3dNazDsci8baCRE7S85Hc",
+    authDomain: "timetable-11136.firebaseapp.com",
+    databaseURL: "https://timetable-11136.firebaseio.com",
+    projectId: "timetable-11136",
+    storageBucket: "timetable-11136.appspot.com",
+    messagingSenderId: "330731838190",
+    appId: "1:330731838190:web:443c3dce93b1eddca331ff"
+  };
+  // Initialize Firebase
+  firebase.initializeApp(firebaseConfig);
+  const messaging = firebase.messaging();
+  messaging.usePublicVapidKey("BIeT8jWpgqULKXODvOuJdlILZsLrwQwN6Bq5sIvZhxww9PEt1QTjsTjLDbaWLSCIHy1LCqbfej8Z7LyY-6iVpsc");
+  Notification.requestPermission().then((permission) => {
+  if (permission === 'granted') {
+    console.log('Notification permission granted.');
+    messaging.getToken().then((currentToken) => {
+  if (currentToken) {
+    sendTokenToServer(currentToken);
+    updateUIForPushEnabled(currentToken);
+  } else {
+    // Show permission request.
+    console.log('No Instance ID token available. Request permission to generate one.');
+    // Show permission UI.
+    updateUIForPushPermissionRequired();
+    setTokenSentToServer(false);
+  }
+}).catch((err) => {
+  console.log('An error occurred while retrieving token. ', err);
+  showToken('Error retrieving Instance ID token. ', err);
+  setTokenSentToServer(false);
+});
+  } else {
+    console.log('Unable to get permission to notify.');
+  }
+});
+</script>
 </head>
 <body>
   <input type="hidden" name="tid" value="<%=id%>"> 
