@@ -1,3 +1,60 @@
+const publicKey = 'BHkacef0FIZC37NgBtSAUzfh4MmjGKblF6VakMT8pHD3sxMAT9Q8En1yiKqHxl1KAeZx6clDtulMqhnj4p6fO_0';
+
+
+if('serviceWorker' in navigator){
+    send()
+    .catch(e=>console.log(e))
+}
+
+
+async function send(){
+    const register = await navigator.serviceWorker.register('/worker.js',{
+        scope : '/'
+    })
+    console.log('Service worker registered!')
+
+    console.log('Registering push...')
+    const subscription = await register.pushManager.subscribe({
+        userVisibleOnly : true,
+        applicationServerKey : urlBase64ToUint8Array(publicKey)
+    })
+    console.log('Push registered')
+
+    console.log('Sending ');
+    await fetch('/subscribe', {
+        method:'post',
+        body:JSON.stringify(subscription),
+        header:{
+            'content-type':'application/json'
+        }
+    })
+    console.log('Push Sent')
+}
+
+
+function urlBase64ToUint8Array(base64String) {
+    const padding = "=".repeat((4 - base64String.length % 4) % 4);
+    const base64 = (base64String + padding)
+      .replace(/\-/g, "+")
+      .replace(/_/g, "/");
+  
+    const rawData = window.atob(base64);
+    const outputArray = new Uint8Array(rawData.length);
+  
+    for (let i = 0; i < rawData.length; ++i) {
+      outputArray[i] = rawData.charCodeAt(i);
+    }
+    return outputArray;
+  }
+
+
+
+
+
+
+
+
+
 function fancy_status(val){
     if(val === 0){
         return `<span style="padding:0px 5px;background:#ee5253;color:white;border-radius:5px">No</span>`

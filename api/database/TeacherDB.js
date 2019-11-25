@@ -4,7 +4,6 @@ class TeacherDB{
     constructor(){
         try{
             this.connection = mysql.createPool({
-                acquireTimeout:2000,
                 multipleStatements : true,
                 connectionLimit : 5,
                 host     : 'remotemysql.com',

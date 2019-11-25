@@ -3,6 +3,14 @@ const cookieSession = require('cookie-session')
 const app = express()
 const env = require('dotenv').config()
 const bodyParser = require('body-parser')
+const webpush = require('web-push')
+const publicVapid = 'BHkacef0FIZC37NgBtSAUzfh4MmjGKblF6VakMT8pHD3sxMAT9Q8En1yiKqHxl1KAeZx6clDtulMqhnj4p6fO_0';
+const privateVapid= 'gpahlchBCF--ALXuHe-WMKpUob0MlSjCsBqU91v23uk';
+
+
+webpush.setVapidDetails('mailto:test@test.com' , publicVapid , privateVapid);
+
+
 
 
 const DB = require('./api/database/TeacherDB')
@@ -54,8 +62,29 @@ app.use("/profile" , profile)
 app.use("/substitute" , show_staffs)
 
 
+//SUBCRIBE ROUTE
+
+app.post("/subscribe",(req,res)=>{
+  const subcription = req.body;
+  
+  res.status(201).json({});
+  
+  const payload = JSON.stringify({
+    title:'Push Test'
+  })
+
+  webpush.sendNotification(subcription , payload)
+  .catch((err)=>{
+    console.log(err)
+  })
+})
+
+
+
+
+
 app.get("/" , (req,res)=>{
-    res.render("./login/index.ejs")
+    res.render("./views/login/index.ejs")
 })
 app.use(function(err, req, res, next) {
   res.status(err.status || 500);
