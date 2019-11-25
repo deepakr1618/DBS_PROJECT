@@ -1,33 +1,42 @@
 const publicKey = 'BHkacef0FIZC37NgBtSAUzfh4MmjGKblF6VakMT8pHD3sxMAT9Q8En1yiKqHxl1KAeZx6clDtulMqhnj4p6fO_0';
 
 
-if('serviceWorker' in navigator){
-    send()
-    .catch(e=>console.log(e))
-}
 
 
-async function send(){
-    const register = await navigator.serviceWorker.register('/worker.js',{
+
+async function send(tid){
+    const register = await navigator.serviceWorker.register('worker.js',{
         scope : '/'
     })
     console.log('Service worker registered!')
-
     console.log('Registering push...')
     const subscription = await register.pushManager.subscribe({
         userVisibleOnly : true,
         applicationServerKey : urlBase64ToUint8Array(publicKey)
     })
     console.log('Push registered')
-
+    console.log(subscription)
     console.log('Sending ');
-    await fetch('/subscribe', {
-        method:'post',
-        body:JSON.stringify(subscription),
-        header:{
-            'content-type':'application/json'
+    // const x = await fetch('/subscribe', {
+    //     method:'POST',
+    //     header:{
+    //         'Content-Type': 'application/json'
+    //     },
+    //     body:JSON.stringify(subscription)
+    // })
+
+    $.ajax({
+        url: '/api/subscribe',
+        type: 'POST',
+        contentType: 'application/json',
+        data: JSON.stringify(subscription , {tid}),
+        success: (response)=>{
+            console.log(response)
+        },
+        error : (xhr,status,error)=>{
+            console.log(error)
         }
-    })
+    });
     console.log('Push Sent')
 }
 
@@ -144,8 +153,16 @@ function fetch_requested(tid){
 
 
 $(document).ready(function(){
+    
     console.log("Loaded")
     const tid = $("input[name='tid']").val()
+
+    if('serviceWorker' in navigator){
+        send(tid)
+        .catch((e)=>{
+            console.log(e)
+        })
+    }
     console.log(tid);
     fetch_accepted(tid);
     fetch_requested(tid);
