@@ -7,6 +7,6 @@ self.addEventListener('push',(e)=>{
     self.registration.showNotification(data.title , {
         body:data.body,
         icon:data.icon,
-        vibrate:[500,100,200]
+        vibrate: [200, 100, 200, 100, 200, 100, 200]
     })
 })

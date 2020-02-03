@@ -40,7 +40,7 @@ router.post("/sendRequestToDest", (req, res) => {
     const reqID = getRandomInt(10000, 999999)
     TDB.connect()
         .then((conn) => {
-            conn.query("insert into Requested(ReqID , sourceTID , destTID , SessID , message  , day) value(?,?,?,?,?,?)", [reqID, stid, dtid, sess_id, message, day], (err, results) => {
+            conn.query("insert into Requested(ReqID , sourceTID , destTID , SessID , message  , day , sessNo) value(?,?,?,?,?,?,?)", [reqID, stid, dtid, sess_id, message, day , sess_no], (err, results) => {
 
                 conn.release();
                 console.log(err)

@@ -82,7 +82,7 @@ router.get("/free",(req,res)=>{
             timetable t1
         WHERE
             t1.t_id = t.t_id AND sess_no = ?
-    ) AND department.deptName = ?` , [sessId , dept] , (err , results)=>{
+    ) department.deptName = ?` , [sessId , dept] , (err , results)=>{
         conn.release();
             res.json(results)
         })

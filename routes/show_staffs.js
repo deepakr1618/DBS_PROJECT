@@ -33,7 +33,8 @@ router.post("/selectStaff" , (req,res)=>{
             WHERE
                 t2.t_id = t1.t_id AND t2.day = ? AND t2.sess_no = ?
         )
-        ORDER BY department.deptName` , [day , sess_no], (err , results)=>{
+        AND NOT EXISTS(select * from Requested where accepted = 1 and day = ? and sessNo =? and destTID = teacher.id)
+        ORDER BY department.deptName` , [day , sess_no , day , sess_no], (err , results)=>{
             conn.release();
                 if(err)
                     res.json({data:"Something went wrong while querying database!"})

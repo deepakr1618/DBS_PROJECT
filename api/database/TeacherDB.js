@@ -7,9 +7,9 @@ class TeacherDB{
                 multipleStatements : true,
                 connectionLimit : 5,
                 host     : 'remotemysql.com',
-                user     : 'EHDxCOwisX',
-                password : 'ysku5tHhcZ',
-                database : 'EHDxCOwisX'
+                user     : 'LuzZFOcRq8',
+                password : 'SUp51HH6R0',
+                database : 'LuzZFOcRq8'
               });
         }
         catch(e){
