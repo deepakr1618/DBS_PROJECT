@@ -166,4 +166,38 @@ $(document).ready(function(){
     console.log(tid);
     fetch_accepted(tid);
     fetch_requested(tid);
+
+
+  let canv = document.querySelector("canvas");
+  let ctx = canv.getContext('2d')
+var myChart = new Chart(ctx, {
+  type: 'bar',
+  data: {
+    labels: ["Requested" , "Taken"],
+    datasets: [{
+      label: '# of classes',
+      data: [asked, taken],
+      backgroundColor: [
+        'rgba(255, 99, 132, 0.4)',
+        'rgba(37, 196, 80, 0.4)'
+      ],
+      borderColor: [
+        'rgba(255,99,132,1)',
+        'rgba(37, 196, 80, 1)'
+      ],
+      borderWidth: 1
+    }]
+  },
+  options: {
+    responsive: true,
+    maintainAspectRatio: false,
+    scales: {
+      yAxes: [{
+        ticks: {
+          beginAtZero: true
+        }
+      }]
+    }
+  }
+});
 })

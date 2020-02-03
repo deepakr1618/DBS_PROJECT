@@ -1,6 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<script>
+let asked = <%= totalAsked%>
+let taken = <%= totalTaken%>
+</script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
@@ -35,7 +40,13 @@
     </a>
   </div>
     <div class="cont">
-        <div class="staffName">
+    <h1>Welcome, <span class="welcomeName"><%= name%></span></h1>
+    <div class="chartCont">
+      <div class="chartInnerCont">
+      <canvas id="canv"></canvas>
+      </div>
+    </div>
+        <!--<div class="staffName">
             <h1>Welcome, <span class="welcomeName"><%= name%></span></h1>
             <div class="show_score">
                <div class="total_asked score">
@@ -49,7 +60,7 @@
                   times
                </div>
             </div>
-         </div>
+         </div>--!>
          <div class="bottom_cont">
            <h3>Looking for a substitute?</h3>
            <a href="/teachers/timetable">

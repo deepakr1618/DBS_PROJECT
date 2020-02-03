@@ -345,6 +345,19 @@ td{
   margin:0px auto;
 }
 
+.chartCont{
+  width:100%;
+  display:flex;
+  justify-content: center;
+  align-items: center;
+  padding: 30px 0px;
+  height:400px;
+}
+
+.chartInnerCont{
+  width:20%;
+  height: 100%;
+}
 
 @media (max-width: 1300px) {
   .accepted_requested_cont{
@@ -356,6 +369,14 @@ td{
   .sess_header{
     flex-direction: column;
   }
+  
+  .chartCont{
+    width:100%;
+  }
+  .chartInnerCont{
+  width:50%;
+  height: 100%;
+}
 }
 @media (max-width: 700px) {
   .cont{
@@ -416,4 +437,12 @@ td{
       font-size: 12px;
       line-height: 30px;
   }
+  .chartCont{
+    width:90%;
+    height:200px;
+  }
+  .chartInnerCont{
+  width:60%;
+  height: 100%;
+}
 }
